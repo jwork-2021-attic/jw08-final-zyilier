@@ -1,19 +1,16 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-f059dc9a6f8d3a56e377f745f24479a46679e63a5d9fe6f495e02850cd0d8118.svg)](https://classroom.github.com/online_ide?assignment_repo_id=6615598&assignment_repo_type=AssignmentRepo)
-# jw08
 
-## 代码
-
-请综合jw04-jw07所有要求，完成一个完整的图形化网络对战游戏。所有提交的作业将统一展出，由各位同学相互打分。
+# jw06地图以及进度保存功能
 
 
-## 报告
 
-在此基础之上，请以《Developing a Java Game from Scratch》为题撰写文章一篇，内容涵盖但不限于：
-- 开发目标（我写的游戏是个什么样的游戏，灵感来源是什么）；
-- 设计理念（代码总体设计是什么？这样设计的好处是什么？）；
-- 技术问题（通信效率、并发控制、输入输出等问题我是怎么解决和优化的，面向对象设计方法带来了什么好处，等）；
-- 工程问题（如何采用各种设计方法、工程方法来提高开发效率和代码质量）；
-- 课程感言（对课程形式、内容等方面提出具体的意见和建议）
-- 等
+因为游戏实现的整体比较简单，故而保存度时，只需要将地图上所有tile中的东西存下来就好了
 
-请使用《中国科学》的[latex模板](http://scis.scichina.com/download/ssi-template.zip)进行排版（不少于6页），输出pdf文件提交。
+在游戏过程中按下s键时执行以下操作：
+使用io操作将地图保存进入record目录下的tem.txt中。首先存入此时玩家剩余的血量，再存入当时的分数。
+接下来保存30x30的地图。地板和子弹为0（即不保存子弹进度），墙为1，敌人为2，玩家为3，塞进这个数组中。
+
+在开始界面以及成功/失败后的重新开始界面按下L键，执行以下操作：
+在创建worldscreen时先创建好玩家，读取玩家生命值并设置
+然后创建world类，读取分数存入world类中
+然后分行读取文件数据并按空格隔开，将数据一个一个填入world的Tiles二维数组中。
+最后start敌人线程和监控血量等的线程，游戏开始进行。
