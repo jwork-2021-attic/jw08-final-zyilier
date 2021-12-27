@@ -1,19 +1,18 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-f059dc9a6f8d3a56e377f745f24479a46679e63a5d9fe6f495e02850cd0d8118.svg)](https://classroom.github.com/online_ide?assignment_repo_id=6615598&assignment_repo_type=AssignmentRepo)
-# jw08
 
-## 代码
+# jw07联机功能
 
-请综合jw04-jw07所有要求，完成一个完整的图形化网络对战游戏。所有提交的作业将统一展出，由各位同学相互打分。
+-最多可供四个玩家游玩
 
 
-## 报告
 
-在此基础之上，请以《Developing a Java Game from Scratch》为题撰写文章一篇，内容涵盖但不限于：
-- 开发目标（我写的游戏是个什么样的游戏，灵感来源是什么）；
-- 设计理念（代码总体设计是什么？这样设计的好处是什么？）；
-- 技术问题（通信效率、并发控制、输入输出等问题我是怎么解决和优化的，面向对象设计方法带来了什么好处，等）；
-- 工程问题（如何采用各种设计方法、工程方法来提高开发效率和代码质量）；
-- 课程感言（对课程形式、内容等方面提出具体的意见和建议）
-- 等
+在Main的同级目录下写了Server和Client，并给两个类增加了辅助的Thread类
 
-请使用《中国科学》的[latex模板](http://scis.scichina.com/download/ssi-template.zip)进行排版（不少于6页），输出pdf文件提交。
+-Client中没有world和Screen，用二维int数组存地图，并直接用terminal打印在窗口中。当成功与Server建立连接时，首先会收到Server发来的一个数字，这回个数字代表着玩家的编号，对应玩家的颜色和生命值等。
+-Client会接收到Server发送来的代表地图内容的String，并将这个String解析为具体的地图内容，然后存在二维数组中打印出来。
+-每按一个键，Client会创建一个字符串，以自己的玩家编号开头，后跟这个按键的编码，并将这个字符串发给Server
+
+-Server中没有terminal，自己直接运行一个world。接受到用户发来的字符串后，解析出编号和按键编码，之后就套WorldScreen类中响应按键函数的皮，对应出该编号玩家对应的操作。每经历一个操作以及每过一段时间，将此时地图上的所有Tile编为一个String并向全部连接成功的channel发送，以保证所有玩家看到的画面一致（玩家看到的都是Server的画面，自己不保存screen）。
+
+地图上还放了四个怪物，这些怪物不能被操控，他们会选择离自己最远的玩家作为目标发动攻击，逻辑与之前的作业中怪物逻辑一致，碰到墙卡在角落不会绕路而是将墙壁破坏掉。
+
+胜利条件为只剩下一个玩家时，该玩家胜利（无论剩余多少怪物）。结束时所有玩家的屏幕都会显示胜利的玩家。
