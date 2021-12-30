@@ -112,6 +112,7 @@ public class Minions extends Creature implements Comparable<Minions> , Runnable 
                     int t = Math.abs(world.screen.bros[i].getX()-this.getX())+Math.abs(world.screen.bros[i].getY()-this.getY());
                     if(t < m && world.screen.bros[i].hp > 0){
                         tar = i;
+                        m = t;
                     }
                 }
                 tx = world.screen.bros[tar].getX();
